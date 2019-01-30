@@ -21,13 +21,13 @@ int main(int argc, char *argv[])
   myint_t n_runs = (argc > 2 ? atoi(argv[2]) : 1);
   int run = 0;
   vector<myint_t> primes(1,2);
-  
+  vector<bool> sieve;
 
   for (int run = 0; run < n_runs; ++run)
   {
 
     cout << "preparing for run " << run + 1 << endl;
-    vector<bool> sieve(run_size, true);
+   
     prepare_sieve(run, start, run_size, primes, sieve);
     cout << "looping\n";
     while (true)
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
         break;
       }
     }
-    print(primes);
+    //print(primes);
     cout << primes.size() << " primes up to " << run_size * (run + 1) << " (non incluseive).\n\n";
   }
   
@@ -75,6 +75,8 @@ void prune_sieve(myint_t start, myint_t run_size, myint_t prime, vector<bool> & 
 
 void prepare_sieve(int run, myint_t start, myint_t run_size, vector<myint_t> & primes, vector<bool> & sieve)
 {
+  sieve = vector<bool>(run_size, true);
+
   if (run == 0)
   {
     sieve[0] = false;
@@ -87,7 +89,7 @@ void prepare_sieve(int run, myint_t start, myint_t run_size, vector<myint_t> & p
       prune_sieve(start, run_size, primes[prime_index], sieve);
     }
   }
-  print(sieve);
+  //print(sieve);
 }
 
 bool run_sieve(myint_t start, myint_t run_size, vector<myint_t> & primes, vector<bool> & sieve)
@@ -109,7 +111,7 @@ bool run_sieve(myint_t start, myint_t run_size, vector<myint_t> & primes, vector
 
   for (prime_test_index = latest_prime ; prime_test_index < run_size; ++prime_test_index)
   {
-    cout << "pti " << prime_test_index << endl;
+    //cout << "pti " << prime_test_index << endl;
     if (sieve[prime_test_index])
     {
       primes.push_back(start + prime_test_index);
